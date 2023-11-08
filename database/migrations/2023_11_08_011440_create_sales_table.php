@@ -16,7 +16,7 @@ return new class () extends Migration {
             $table->foreignId('seller_id')->constrained();
             $table->timestamp('sold_at');
             $table->char('status', 1);
-            $table->integer('total_value'); //Value in cents
+            $table->integer('total'); //Value in cents
             $table->timestamps();
             $table->softDeletes();
         });
