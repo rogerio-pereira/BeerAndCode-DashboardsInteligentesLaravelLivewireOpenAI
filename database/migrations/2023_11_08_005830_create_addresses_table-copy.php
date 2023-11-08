@@ -10,15 +10,11 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('seles', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('seller_id')->constrained();
-            $table->timestamp('sold_at');
-            $table->char('status', 1);
-            $table->integer('total_value'); //Value in cents
+            $table->string('city');
+            $table->char('state', 2);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -27,6 +23,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('seles');
+        Schema::dropIfExists('addresses');
     }
 };
