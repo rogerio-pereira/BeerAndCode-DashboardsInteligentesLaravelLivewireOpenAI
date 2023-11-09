@@ -10,4 +10,19 @@ class SalesCommission extends Model
 
     public $incrementing = false;
     public $timestamps = false;
+
+    public function scopeGetColumns(): array
+    {
+        return [
+            'company',
+            'seller',
+            'client',
+            'city',
+            'state',
+            'sold_at',
+            'status',
+            'total_amount',
+            'commission',
+        ];
+    }
 }
