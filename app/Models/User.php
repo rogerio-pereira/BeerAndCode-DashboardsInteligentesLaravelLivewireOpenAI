@@ -53,12 +53,12 @@ class User extends Authenticatable
      * =================================================================================================================
      */
 
-    public function clients(): HasOne
+    public function client(): HasOne
     {
         return $this->hasOne(Client::class);
     }
 
-    public function sellers(): HasOne
+    public function seller(): HasOne
     {
         return $this->hasOne(Seller::class);
     }
