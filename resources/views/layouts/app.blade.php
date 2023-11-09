@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen">
-        <div>
+        <div x-data='{ menuVisibility: false }'>
             <x-sidebar />
         </div>
     </body>
