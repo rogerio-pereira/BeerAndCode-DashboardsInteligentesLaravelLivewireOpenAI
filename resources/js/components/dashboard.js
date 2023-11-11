@@ -1,28 +1,28 @@
 export default () => ({
     loading: false,
-
     generateReport() {
-        this.loading = true
-        
-        const sizes = this.$refs.vegalitecontainer.getBoundingClientRect()  //Gives access to height and width of view components
+        this.loading = true;
+
+        const sizes = this.$refs.vegalitecontainer.getBoundingClientRect();
 
         this.$wire.generateReport()
             .then((result) => {
-                const dataset = this.$wire.get('dataset')
-                
-                result.data = dataset
-                result.height = sizes.height
-                result.width = sizes.width
+                var dataset = this.$wire.get('dataset');
 
-                console.log(dataset, result, sizes)
+                result.data = dataset;
+                result.height = sizes.height;
+                result.width = sizes.width;
 
-                window.vegaEmbed('#vis', result)
+                console.log(dataset, result, sizes);
+
+                window.vegaEmbed("#vis", result);
+
+                this.loading = false;
             })
-            .catch((error) => {
-                console.log(error)
+            .catch((err) => {
+                this.loading = false;
+                console.log(err)
             })
-            .finally(() => {
-                this.loading = false
-            })
+
     }
 })

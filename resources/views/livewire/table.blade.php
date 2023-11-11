@@ -20,31 +20,31 @@
                     @endif
                 </tr>
             </thead>
-
             <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($items as $item)
-                    <tr class="bg-white dark:bg-gray-700">
-                        @foreach($columns as $column)
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">{{ data_get($item, $column['column']) }}</td>
-                        @endforeach
+            @foreach($items as $item)
+                <tr class="bg-white dark:bg-gray-700">
+                    @foreach($columns as $column)
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">{{ data_get($item, $column['column']) }}</td>
+                    @endforeach
 
-                        @if($edit)
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                                <a href="{{ route($edit, $item->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-white dark:hover:text-gray-400">{{ __('Edit') }}</a>
-                            </td>
-                        @endif
+                    @if($edit)
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
+                            <a href="{{ route($edit, $item->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-white dark:hover:text-gray-400">{{ __('Edit') }}</a>
+                        </td>
+                    @endif
 
-                        @if($delete)
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                                {{ __('Delete') }}
-                            </td>
-                        @endif
-                    </tr>
-                @endforeach
+                    @if($delete)
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
+
+                            {{ __('Delete') }}
+
+                        </td>
+                    @endif
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
-    
     <div class="py-4">
         {{ $items->links() }}
     </div>

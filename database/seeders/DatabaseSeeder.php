@@ -10,15 +10,17 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
         $this->call([
             AddressSeeder::class,
             CompanySeeder::class,
-            UserSeeder::class,
+            UserSeeder::class
         ]);
 
-        DB::unprepared('REFRESH MATERIALIZED VIEW sales_commission_view');
+        DB::unprepared("REFRESH MATERIALIZED VIEW sales_commission_view");
     }
 }

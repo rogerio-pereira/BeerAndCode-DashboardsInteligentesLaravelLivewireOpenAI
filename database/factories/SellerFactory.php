@@ -15,11 +15,11 @@ class SellerFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
+            'company_id' => fake()->numberBetween(1, 4),
             'user_id' => User::factory(),
-            'company_id' => fake()->numberBetween(1, 4),    //Not using Company factory because we want the client to use some specific company
         ];
     }
 }

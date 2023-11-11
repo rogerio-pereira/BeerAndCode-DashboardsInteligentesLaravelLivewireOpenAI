@@ -17,14 +17,14 @@ class SaleFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'client_id' => Client::factory(),
             'seller_id' => Seller::factory(),
-            'sold_at' => fake()->dateTimeBetween('-8 years days', '-1 year'),
-            'status' => fake()->randomElement(Status::cases()), //Cases is a native enum function, it return an array with all elements
-            'total' => fake()->numberBetween(10000, 50000), //Between 100.00 and 500.00 (field is integer)
+            'client_id' => Client::factory(),
+            'sold_at' => fake()->dateTimeBetween('-8 years', '-1 year'),
+            'total_amount' => fake()->numberBetween(10000, 50000),
+            'status' => fake()->randomElement(Status::cases())
         ];
     }
 }

@@ -13,19 +13,18 @@ class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // $clients = Client::with('user', 'address')
-        //                 ->paginate(10);
-
-        // return view('clients.index', compact(['clients']));
-
-        return view('clients.index'); //Clients will be retrieved by Livewire/Table
+        return view('clients.index');
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -34,36 +33,32 @@ class ClientController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreClientRequest  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(StoreClientRequest $request)
     {
-        $data = $request->validated();
-
-        DB::transaction(function () use ($data) {
+        DB::transaction(function() use($request) {
             $user = User::create([
-                            'name' => $data['name'],
-                            'email' => $data['email'],
-                            'password' => Hash::make('123456'),
-                        ]);
+                'email' => $request->get('email'),
+                'name' => $request->get('name'),
+                'password' => Hash::make('123456')
+            ]);
 
             $user->client()->create([
-                    'address_id' => $data['address_id'],
-                ]);
+                'address_id' => $request->get('address_id'),
+            ]);
         });
 
         return redirect()->route('clients.index');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Client $client)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\Response
      */
     public function edit(Client $client)
     {
@@ -72,20 +67,22 @@ class ClientController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateClientRequest  $request
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\Response
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        $data = $request->validated();
-
-        DB::transaction(function () use ($data, $client) {
+        DB::transaction(function() use($request, $client) {
             $client->user->update([
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                ]);
+                'email' => $request->get('email'),
+                'name' => $request->get('name')
+            ]);
 
             $client->update([
-                    'address_id' => $data['address_id'],
-                ]);
+                'address_id' => $request->get('address_id'),
+            ]);
         });
 
         return redirect()->route('clients.index');
@@ -93,6 +90,9 @@ class ClientController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Client  $client
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
     {

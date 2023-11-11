@@ -15,11 +15,11 @@ class ClientFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
+            'address_id' => fake()->numberBetween(1, 10),
             'user_id' => User::factory(),
-            'address_id' => fake()->numberBetween(1, 10),   //Not using Address factory because we want the client to use some specific address
         ];
     }
 }

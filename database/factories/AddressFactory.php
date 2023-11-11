@@ -14,11 +14,11 @@ class AddressFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
             'city' => fake()->city(),
-            'state' => fake()->stateAbbr(),
+            'state' => fake()->stateAbbr()
         ];
     }
 }
