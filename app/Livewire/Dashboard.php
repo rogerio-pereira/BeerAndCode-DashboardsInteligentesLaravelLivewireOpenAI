@@ -26,12 +26,11 @@ class Dashboard extends Component
         $this->validate();
 
         $fields = implode(',', SalesCommission::getColumns());
-        $question = 'Gere um grafico das vendas por empresa no eixo y ao longo dos ultimos 5 anos';
 
         $this->config = OpenAI::completions()
                     ->create([
                         'model' => 'text-davinci-003',
-                        'prompt' => "Considerando a lista de campos ({$fields}), gere uma configuracao json do Vega-lite v5 (sem campos de dados e com descricao) que atenda o seguinte pedido {$question}. Resposta:",
+                        'prompt' => "Considerando a lista de campos ({$fields}), gere uma configuracao json do Vega-lite v5 (sem campos de dados e com descricao) que atenda o seguinte pedido {$this->question}. Resposta:",
                         'max_tokens' => 1500,
                     ])
                     ->choices[0]
@@ -40,7 +39,9 @@ class Dashboard extends Component
         $this->config = str_replace("\n", '', $this->config);
         $this->config = json_decode($this->config, true);
 
-        $data = SalesCommission::get()
+        $data = SalesCommission::inRandomOrder()
+                    ->limit(300)
+                    ->get()
                     ->toArray();
 
         $this->dataset = [
